@@ -1,4 +1,16 @@
+<%@page import="com.multicampus.biz.board.BoardVO"%>
+<%@page import="java.util.List"%>
+<%@page import="com.multicampus.biz.board.BoardDAO"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
+
+<%
+	// 1. 사용자 입력정보 추출(검색 기능은 나중에...)
+	// 2. DB 연동 처리
+	BoardDAO boardDAO = new BoardDAO();
+	List<BoardVO> boardList = boardDAO.getBoardList();
+	
+	// 3. 응답 화면 구성
+%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -37,17 +49,19 @@
 	<th bgcolor="orange" width="100">조회수</th>
 </tr>
 
+<% for(BoardVO board : boardList) { %>
 <tr>
-	<td>임시</td>
-	<td align="left"><a href="getBoard.jsp">임시</a></td>
-	<td>임시</td>
-	<td>임시</td>
-	<td>임시</td>
+	<td><%= board.getSeq() %></td>
+	<td align="left"><a href="getBoard.jsp?seq=<%= board.getSeq() %>"><%= board.getTitle() %></a></td>
+	<td><%= board.getWriter() %></td>
+	<td><%= board.getRegDate() %></td>
+	<td><%= board.getCnt() %></td>
 </tr>
+<% } %>
 
 </table>
 <br>
-<a href="insertBoard.jsp">새글 등록</a>
+<a href="insertBoard.html">새글 등록</a>
 </center>
 </body>
 </html>
