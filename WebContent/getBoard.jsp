@@ -1,8 +1,10 @@
+<%@page import="com.multicampus.biz.user.UserVO"%>
 <%@page import="com.multicampus.biz.board.BoardDAO"%>
 <%@page import="com.multicampus.biz.board.BoardVO"%>
 <%@page contentType="text/html; charset=EUC-KR"%> 
    
 <%
+
 	// 1. 사용자 입력정보 추출
 	String seq = request.getParameter("seq");
 	
@@ -58,7 +60,16 @@
 </form>
 <hr>
 <a href="insertBoard.html">글등록</a>&nbsp;&nbsp;&nbsp;
+
+<%
+//0. 세션체크
+	UserVO user = (UserVO) session.getAttribute("user");
+	if(user.getRole().equals("Admin")) {		
+%>
 <a href="deleteBoard_proc.jsp?seq=<%= board.getSeq() %>">글삭제</a>&nbsp;&nbsp;&nbsp;
+<% } %>
+
+
 <a href="getBoardList.jsp">글목록</a>
 </center>
 </body>

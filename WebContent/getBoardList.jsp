@@ -1,9 +1,16 @@
+<%@page import="com.multicampus.biz.user.UserVO"%>
 <%@page import="com.multicampus.biz.board.BoardVO"%>
 <%@page import="java.util.List"%>
 <%@page import="com.multicampus.biz.board.BoardDAO"%>
 <%@page contentType="text/html; charset=EUC-KR"%>
 
 <%
+	//0. 세션체크
+	UserVO user = (UserVO) session.getAttribute("user");
+	if(user == null) {
+		response.sendRedirect("login.html");
+	} 
+
 	// 1. 사용자 입력정보 추출(검색 기능은 나중에...)
 	// 2. DB 연동 처리
 	BoardDAO boardDAO = new BoardDAO();
